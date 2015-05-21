@@ -19,6 +19,19 @@ public class Page extends JFrame{
     private AddressBar addressBar;
     private HtmlBody htmlBody;
     private Menu mnBar;
+
+    public AddressBar getAddressBar() {
+        return addressBar;
+    }
+
+    public HtmlBody getHtmlBody() {
+        return htmlBody;
+    }
+
+    public Menu getMnBar() {
+        return mnBar;
+    }
+    
     public Page(){
         
         super("HS Browser");

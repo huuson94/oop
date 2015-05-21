@@ -8,6 +8,7 @@ package com.view;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import javax.swing.JTextPane;
+import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
@@ -17,6 +18,7 @@ import javax.swing.text.html.HTMLEditorKit;
  * @author hs
  */
 public class HtmlBody extends JTextPane{
+    
     public HtmlBody() {
         super();
         this.setLayout(new FlowLayout());
@@ -27,6 +29,8 @@ public class HtmlBody extends JTextPane{
         HTMLEditorKit html_kit = new HTMLEditorKit();
         this.setEditorKit(html_kit);
         this.setDocument(new HTMLDocument());
+        
+        
         //this.setLineWrap(true);
         
     }
