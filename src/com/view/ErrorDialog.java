@@ -23,7 +23,7 @@ public class ErrorDialog extends JFrame{
         this.add(error, BorderLayout.CENTER);
         this.setSize(500,200);
         setVisible(true);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
     }

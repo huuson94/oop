@@ -8,6 +8,8 @@ package com.controller;
 import com.view.*;
 import com.tag.*;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -16,6 +18,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.logging.Level;
@@ -89,21 +92,37 @@ public class PageController extends Thread{
 
     public void showPage() {
         page.setVisible(true);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        page.setLocation(dim.width/2-page.getSize().width/2, dim.height/2-page.getSize().height/2);
     }
 
     public void loadPage(String address) {
-        //clear page
-        page.getHtmlBody().setText("");
-        // refresh addressbar
-        page.getAddressBar().setText(address);
-        String  content = readHtml(address);
-        org.jsoup.nodes.Document doc = Jsoup.parse(content);
-        Element parent = doc.select("body").first();
-        parseTag(parent);
-        writeHistory(address);
+        try {
+            //clear page
+            page.getHtmlBody().setText("");
+            // refresh addressbar
+            page.getAddressBar().setText(address);
+            String  content = readHtml(address);
+            org.jsoup.nodes.Document doc = Jsoup.parse(content);
+            Element parent = doc.select("body").first();
+            parseTag(parent);
+            writeHistory(address);
+        } catch (BadLocationException ex) {
+            Logger.getLogger(PageController.class.getName()).log(Level.SEVERE, null, ex);
+            showErrorDialog(ex.toString());
+        } catch (IOException ex) {
+            Logger.getLogger(PageController.class.getName()).log(Level.SEVERE, null, ex);
+            showErrorDialog(ex.toString());
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            Logger.getLogger(PageController.class.getName()).log(Level.SEVERE, null, ex);
+            showErrorDialog(ex.toString());
+        } catch (Exception ex){
+            Logger.getLogger(PageController.class.getName()).log(Level.SEVERE, null, ex);
+            showErrorDialog(ex.toString());
+        }
     }
     
-    private String readHtml(String address){
+    private String readHtml(String address) throws MalformedURLException, IOException{
         String line = "";
         String fileContent = "";
         
@@ -111,28 +130,22 @@ public class PageController extends Thread{
             return "";
         }
         address = checkAddress(address);
-        try {
-            URL url = new URL(address);
+       
+        URL url = new URL(address);
 
-            URLConnection connection = url.openConnection();
+        URLConnection connection = url.openConnection();
 
-            InputStream inputStream = connection.getInputStream();
+        InputStream inputStream = connection.getInputStream();
 
-            BufferedReader bf = new BufferedReader(new InputStreamReader(inputStream));
-            while (line != null) {
-                line = bf.readLine();
-                fileContent += "\n" + line;
-            }
-            
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            showErrorDialog(e.getMessage());
+        BufferedReader bf = new BufferedReader(new InputStreamReader(inputStream));
+        while (line != null) {
+            line = bf.readLine();
+            fileContent += "\n" + line;
         }
         return fileContent;
     }
     
-    private void parseTag(Element cur){
+    private void parseTag(Element cur) throws BadLocationException{
         int i = 0;
         if (cur == null) {
             return;
@@ -156,17 +169,14 @@ public class PageController extends Thread{
                 parseTag((Tags.get(i)));
             }
             if (hasBlockParent == true) {
-                try {
-                    page.getHtmlBody().getDocument().insertString(page.getHtmlBody().getStyledDocument().getLength(), "\n", getPageStyle());
-                } catch (Exception ex) {
-                    Logger.getLogger(PageController.class.getName()).log(Level.SEVERE, null, ex);
-                    showErrorDialog(ex.getMessage());
-                }
+                
+                page.getHtmlBody().getDocument().insertString(page.getHtmlBody().getStyledDocument().getLength(), "\n", getPageStyle());
+                
             }
         }
     }
     
-    private void printTag(Element cur){
+    private void printTag(Element cur) throws BadLocationException{
        
         switch (cur.tagName()) {
             case ("div"):
@@ -208,7 +218,7 @@ public class PageController extends Thread{
                 break;
 
             default:
-                //this.getDocument().insertString(this.getStyledDocument().getLength(),cur.ownText(), pageStyle);
+                page.getHtmlBody().insertString(cur.ownText(), pageStyle);
                 break;
         }
         page.getHtmlBody().validate();

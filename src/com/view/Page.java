@@ -58,8 +58,7 @@ public class Page extends JFrame{
         this.setLocationRelativeTo(null);
         this.add(new JScrollPane(htmlBody), BorderLayout.CENTER);
 	this.pack();
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        
         this.setSize(800, 600);
         this.setVisible(false);
     }

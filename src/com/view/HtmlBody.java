@@ -35,11 +35,8 @@ public class HtmlBody extends JTextPane{
         
     }
     
-    public void insertString(String text, SimpleAttributeSet style){
-        try {
-            this.getDocument().insertString(this.getDocument().getLength(), text, style);
-        } catch (BadLocationException ex) {
-            Logger.getLogger(HtmlBody.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void insertString(String text, SimpleAttributeSet style) throws BadLocationException, ArrayIndexOutOfBoundsException{
+        this.getDocument().insertString(this.getDocument().getLength(), text, style);
+          
     }
 }
