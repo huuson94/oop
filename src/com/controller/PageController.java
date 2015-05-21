@@ -21,8 +21,12 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.input.DataFormat;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -229,8 +233,13 @@ public class PageController extends Thread{
     private void writeHistory(String address){
         
         try {
+            DateFormat dateFormat = new SimpleDateFormat(" HH:mm:ss dd/MM/yyyy");
+            Date date = new Date();
+            //System.out.println(dateFormat.format(date));
             FileWriter writer = new FileWriter("history.dat", true);
             writer.append(address);
+            writer.append("\t");
+            writer.append(dateFormat.format(date));
             writer.append("\n");
             writer.close();
         } catch (FileNotFoundException ex) {
