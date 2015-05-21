@@ -167,56 +167,53 @@ public class PageController extends Thread{
     }
     
     private void printTag(Element cur){
-        try {
-            switch (cur.tagName()) {
-                case ("div"):
-                    DivTag d = new DivTag(cur.ownText());
-                    
-                    page.getHtmlBody().getDocument().insertString(page.getHtmlBody().getStyledDocument().getLength(), d.getText(), d.getStyle());
-                    break;
-                case ("h1"):
-                    H1Tag h1 = new H1Tag(cur.ownText());
-                    //System.out.print(tag.text());
-                    //h1.setVisible(true);
-                    page.getHtmlBody().getDocument().insertString(page.getHtmlBody().getStyledDocument().getLength(), h1.getText(), h1.getStyle());
-                    break;
-                case ("h2"):
-                    H2Tag h2 = new H2Tag(cur.ownText());
-                    //System.out.print(tag.text());
-                    //h1.setVisible(true);
-                    page.getHtmlBody().getDocument().insertString(page.getHtmlBody().getStyledDocument().getLength(), h2.getText(), h2.getStyle());
-                    break;
-                case ("p"):
-                    PTag p = new PTag(cur.ownText());
-                    //System.out.print(tag.text());
-                    //p.setVisible(true);
-                    page.getHtmlBody().getDocument().insertString(page.getHtmlBody().getStyledDocument().getLength(), p.getText(), p.getStyle());
-                    break;
-                case ("span"):
-                    SpanTag s = new SpanTag(cur.ownText());
-                    //System.out.print(tag.text());
-                    //s.setVisible(true);
-                    page.getHtmlBody().getDocument().insertString(page.getHtmlBody().getStyledDocument().getLength(), s.getText(), s.getStyle());
-                    break;
-                case ("a"):
-                    ATag a = new ATag(cur.ownText());
+       
+        switch (cur.tagName()) {
+            case ("div"):
+                DivTag d = new DivTag(cur.ownText());
 
-                    page.getHtmlBody().getDocument().insertString(page.getHtmlBody().getStyledDocument().getLength(), a.getText(), a.getStyle());
-                    break;
-                case ("br"):
-                    page.getHtmlBody().getDocument().insertString(page.getHtmlBody().getStyledDocument().getLength(), "\n", pageStyle);
-                    break;
-                    
-                default:
-                    //this.getDocument().insertString(this.getStyledDocument().getLength(),cur.ownText(), pageStyle);
-                    break;
-            }
-            page.getHtmlBody().validate();
-            page.getHtmlBody().repaint();
-        } catch (BadLocationException ex) {
-            Logger.getLogger(PageController.class.getName()).log(Level.SEVERE, null, ex);
-            showErrorDialog(ex.getMessage());
+                page.getHtmlBody().insertString(d.getText(), d.getStyle());
+                break;
+            case ("h1"):
+                H1Tag h1 = new H1Tag(cur.ownText());
+                //System.out.print(tag.text());
+                //h1.setVisible(true);
+                page.getHtmlBody().insertString(h1.getText(), h1.getStyle());
+                break;
+            case ("h2"):
+                H2Tag h2 = new H2Tag(cur.ownText());
+                //System.out.print(tag.text());
+                //h1.setVisible(true);
+                page.getHtmlBody().insertString(h2.getText(), h2.getStyle());
+                break;
+            case ("p"):
+                PTag p = new PTag(cur.ownText());
+                //System.out.print(tag.text());
+                //p.setVisible(true);
+                page.getHtmlBody().insertString(p.getText(), p.getStyle());
+                break;
+            case ("span"):
+                SpanTag s = new SpanTag(cur.ownText());
+                //System.out.print(tag.text());
+                //s.setVisible(true);
+                page.getHtmlBody().insertString(s.getText(), s.getStyle());
+                break;
+            case ("a"):
+                ATag a = new ATag(cur.ownText());
+
+                page.getHtmlBody().insertString(a.getText(), a.getStyle());
+                break;
+            case ("br"):
+                page.getHtmlBody().insertString("\n", pageStyle);
+                break;
+
+            default:
+                //this.getDocument().insertString(this.getStyledDocument().getLength(),cur.ownText(), pageStyle);
+                break;
         }
+        page.getHtmlBody().validate();
+        page.getHtmlBody().repaint();
+
     }
     
     private void writeHistory(String address){

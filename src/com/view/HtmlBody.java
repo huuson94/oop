@@ -7,7 +7,10 @@ package com.view;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTextPane;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.html.HTMLDocument;
@@ -30,8 +33,13 @@ public class HtmlBody extends JTextPane{
         this.setEditorKit(html_kit);
         this.setDocument(new HTMLDocument());
         
-        
-        //this.setLineWrap(true);
-        
+    }
+    
+    public void insertString(String text, SimpleAttributeSet style){
+        try {
+            this.getDocument().insertString(this.getDocument().getLength(), text, style);
+        } catch (BadLocationException ex) {
+            Logger.getLogger(HtmlBody.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
