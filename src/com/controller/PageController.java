@@ -94,8 +94,8 @@ public class PageController extends Thread{
     public void loadPage(String address) {
         //clear page
         page.getHtmlBody().setText("");
-        
-        
+        // refresh addressbar
+        page.getAddressBar().setText(address);
         String  content = readHtml(address);
         org.jsoup.nodes.Document doc = Jsoup.parse(content);
         Element parent = doc.select("body").first();
