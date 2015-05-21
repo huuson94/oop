@@ -18,7 +18,6 @@ public class H2Tag extends BlockTag{
     
     public H2Tag(String text_t) {
         super(text_t);
-        StyleConstants.setFontFamily(style, "Courier New Italic");
         StyleConstants.setForeground(style, Color.GREEN);
         StyleConstants.setFontSize(style, 24);
     }

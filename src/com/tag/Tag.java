@@ -31,7 +31,7 @@ abstract public class Tag {
     
     public Tag(String text) {
         this.text = text;
-        StyleConstants.setFontFamily(style, "Courier New Italic");
+        StyleConstants.setFontFamily(style, "Arial");
         StyleConstants.setForeground(style, Color.BLACK);
         StyleConstants.setFontSize(style, 12);
 
