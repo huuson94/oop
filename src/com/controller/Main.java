@@ -11,10 +11,12 @@ package com.controller;
  */
 public class Main {
     public static void main(String[] args){
-        String defaultAdd = "genk.vn";
+        
         PageController p = new PageController();
+        p.start();
         p.showPage();
-        p.getPage().getAddressBar().setText(defaultAdd);
-        p.loadPage(defaultAdd);
+        p.getPage().getAddressBar().setText(p.getDefaultAddress());
+        p.loadPage(p.getDefaultAddress());
+        
     }
 }

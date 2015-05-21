@@ -32,10 +32,14 @@ import org.jsoup.select.Elements;
  *
  * @author hs
  */
-public class PageController {
+public class PageController extends Thread{
 
     private Page page;
-
+    private final String defaultAddress = "";
+    public void setPage(Page page) {
+        this.page = page;
+    }
+    
     public Page getPage() {
         return page;
     }
@@ -77,6 +81,7 @@ public class PageController {
                             loadPage(address);
                         } catch (Exception ex) {
                             Logger.getLogger(AddressBar.class.getName()).log(Level.SEVERE, null, ex);
+                            showErrorDialog(ex.getMessage());
                         }
                     }
                 });
@@ -121,7 +126,8 @@ public class PageController {
             
 
         } catch (Exception e) {
-        
+            e.printStackTrace();
+            showErrorDialog(e.getMessage());
         }
         return fileContent;
     }
@@ -154,6 +160,7 @@ public class PageController {
                     page.getHtmlBody().getDocument().insertString(page.getHtmlBody().getStyledDocument().getLength(), "\n", getPageStyle());
                 } catch (Exception ex) {
                     Logger.getLogger(PageController.class.getName()).log(Level.SEVERE, null, ex);
+                    showErrorDialog(ex.getMessage());
                 }
             }
         }
@@ -208,6 +215,7 @@ public class PageController {
             page.getHtmlBody().repaint();
         } catch (BadLocationException ex) {
             Logger.getLogger(PageController.class.getName()).log(Level.SEVERE, null, ex);
+            showErrorDialog(ex.getMessage());
         }
     }
     
@@ -220,9 +228,30 @@ public class PageController {
             writer.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Page.class.getName()).log(Level.SEVERE, null, ex);
+            showErrorDialog(ex.getMessage());
         } catch (IOException ex) {
             Logger.getLogger(Page.class.getName()).log(Level.SEVERE, null, ex);
+            showErrorDialog(ex.getMessage());
         }
         
+    }
+
+    public String getDefaultAddress() {
+        return defaultAddress;
+    }
+    
+    private void showErrorDialog(String error){
+        page.setErrorDialog(new ErrorDialog(error));
+        page.getErrorDialog().setVisible(true);
+        restartPage();
+        
+    }
+    private void hideErrorDialog(){
+        page.getErrorDialog().setVisible(false);
+    }
+    private void restartPage(){
+        setPage(new Page());
+        page.getAddressBar().setText(defaultAddress);
+        loadPage(defaultAddress);
     }
 }

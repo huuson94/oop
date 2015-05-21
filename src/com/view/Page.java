@@ -6,6 +6,8 @@
 package com.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JScrollPane;
@@ -19,7 +21,8 @@ public class Page extends JFrame{
     private AddressBar addressBar;
     private HtmlBody htmlBody;
     private Menu mnBar;
-
+    private ErrorDialog errorDialog;
+    
     public AddressBar getAddressBar() {
         return addressBar;
     }
@@ -31,6 +34,15 @@ public class Page extends JFrame{
     public Menu getMnBar() {
         return mnBar;
     }
+
+    public ErrorDialog getErrorDialog() {
+        return errorDialog;
+    }
+
+    public void setErrorDialog(ErrorDialog errorDialog) {
+        this.errorDialog = errorDialog;
+    }
+    
     
     public Page(){
         
@@ -46,7 +58,8 @@ public class Page extends JFrame{
         this.setLocationRelativeTo(null);
         this.add(new JScrollPane(htmlBody), BorderLayout.CENTER);
 	this.pack();
-        
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         this.setSize(800, 600);
         this.setVisible(false);
     }
