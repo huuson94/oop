@@ -220,9 +220,9 @@ public class PageController extends Thread{
             case ("br"):
                 page.getHtmlBody().insertString("\n", pageStyle);
                 break;
-
             default:
-                page.getHtmlBody().insertString(cur.ownText(), pageStyle);
+                if(cur.ownText() != null)
+                    page.getHtmlBody().insertString(cur.ownText(), pageStyle);
                 break;
         }
         page.getHtmlBody().validate();
