@@ -16,15 +16,16 @@ import javax.swing.text.StyleConstants;
  *
  * @author hs
  */
-abstract public class Tag {
+abstract public class Tag implements Writeable{
 
     protected SimpleAttributeSet style = new SimpleAttributeSet();
-    private String text = "";
+    protected String text = "";
 
     public String getText() {
         return text;
     }
 
+    @Override
     public void setText(String text) {
         this.text = text;
     }

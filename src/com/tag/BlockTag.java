@@ -17,7 +17,7 @@ package com.tag;
     }
     
     @Override
-    public String getText(){
+     public String getText(){
         if(super.getText() != null) 
             return super.getText() + "\n";
         else return "";
