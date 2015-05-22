@@ -17,6 +17,15 @@ import javax.swing.JTextField;
  */
 public class ErrorDialog extends JFrame{
     
+    public ErrorDialog(){
+        this.setTitle("ERROR");
+        setVisible(true);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+    }
+    
+    
     public ErrorDialog(String err){
         this.setTitle("ERROR");
         JTextField error = new JTextField(err);
