@@ -13,9 +13,14 @@ package com.tag;
 
     public BlockTag(String text)  {
         super(text);
-        if(this.getText() != null) 
-            this.setText(this.getText() + "\n");
-        else this.setText("\n");
+        
+    }
+    
+    @Override
+    public String getText(){
+        if(super.getText() != null) 
+            return super.getText() + "\n";
+        else return "";
     }
     
 }
