@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.html.HTMLDocument;
@@ -27,16 +28,11 @@ public class HtmlBody extends JTextPane{
         this.setLayout(new FlowLayout());
         this.setEditable(false);
         this.setSize(800, 600);
-        this.setContentType("text/html");
-
-        HTMLEditorKit html_kit = new HTMLEditorKit();
-        this.setEditorKit(html_kit);
-        this.setDocument(new HTMLDocument());
+        this.setDocument(new DefaultStyledDocument());
         
     }
     
     public void insertString(String text, SimpleAttributeSet style) throws BadLocationException, ArrayIndexOutOfBoundsException{
         this.getDocument().insertString(this.getDocument().getLength(), text, style);
-          
     }
 }
