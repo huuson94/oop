@@ -254,15 +254,11 @@ public class PageController extends Thread{
     private void showErrorDialog(String error){
         page.setErrorDialog(new ErrorDialog(error));
         page.getErrorDialog().setVisible(true);
-        restartPage();
+        
         
     }
     private void hideErrorDialog(){
         page.getErrorDialog().setVisible(false);
     }
-    private void restartPage(){
-        setPage(new Page());
-        page.getAddressBar().setText(defaultAddress);
-        loadPage(defaultAddress);
-    }
+    
 }
