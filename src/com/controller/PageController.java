@@ -21,6 +21,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -87,8 +88,10 @@ public class PageController extends Thread{
                         page.getHtmlBody().setText("");
                         try {
                             loadPage(address);
+                        }catch(UnknownHostException ex){
+                            showErrorDialog("Lỗi địa chỉ !");
                         } catch (Exception ex) {
-                            Logger.getLogger(AddressBar.class.getName()).log(Level.SEVERE, null, ex);
+                            //Logger.getLogger(AddressBar.class.getName()).log(Level.SEVERE, null, ex);
                             showErrorDialog(ex.getMessage());
                         }
                     }
@@ -101,30 +104,18 @@ public class PageController extends Thread{
         page.setLocation(dim.width/2-page.getSize().width/2, dim.height/2-page.getSize().height/2);
     }
 
-    public void loadPage(String address) {
-        try {
-            //clear page
-            page.getHtmlBody().setText("");
-            // refresh addressbar
-            page.getAddressBar().setText(address);
-            String  content = readHtml(address);
-            org.jsoup.nodes.Document doc = Jsoup.parse(content);
-            Element parent = doc.select("body").first();
-            parseTag(parent);
-            writeHistory(address);
-        } catch (BadLocationException ex) {
-            Logger.getLogger(PageController.class.getName()).log(Level.SEVERE, null, ex);
-            showErrorDialog(ex.toString());
-        } catch (IOException ex) {
-            Logger.getLogger(PageController.class.getName()).log(Level.SEVERE, null, ex);
-            showErrorDialog(ex.toString());
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            Logger.getLogger(PageController.class.getName()).log(Level.SEVERE, null, ex);
-            showErrorDialog(ex.toString());
-        } catch (Exception ex){
-            Logger.getLogger(PageController.class.getName()).log(Level.SEVERE, null, ex);
-            showErrorDialog(ex.toString());
-        }
+    public void loadPage(String address) throws IOException, BadLocationException {
+        
+        //clear page
+        page.getHtmlBody().setText("");
+        // refresh addressbar
+        page.getAddressBar().setText(address);
+        String  content = readHtml(address);
+        org.jsoup.nodes.Document doc = Jsoup.parse(content);
+        Element parent = doc.select("body").first();
+        parseTag(parent);
+        writeHistory(address);
+        
     }
     
     private String readHtml(String address) throws MalformedURLException, IOException{
