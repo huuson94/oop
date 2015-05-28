@@ -9,7 +9,7 @@ package com.tag;
  *
  * @author hs
  */
- public class BlockTag extends Tag{
+ abstract public class BlockTag extends Tag{
 
     public BlockTag(String text)  {
         super(text);

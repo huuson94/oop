@@ -10,5 +10,5 @@ package com.tag;
  * @author hs
  */
 public interface Writeable {
-    public void setText(String text);
+    public void insertString(String text);
 }

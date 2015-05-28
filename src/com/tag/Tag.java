@@ -26,7 +26,7 @@ abstract public class Tag implements Writeable{
     }
 
     @Override
-    public void setText(String text) {
+    public void insertString(String text) {
         this.text = text;
     }
     

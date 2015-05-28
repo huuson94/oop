@@ -5,15 +5,19 @@
  */
 package com.view;
 
+import com.tag.Writeable;
 import javax.swing.JTextField;
 
 /**
  *
  * @author hs
  */
-public class AddressBar extends JTextField{
+public class AddressBar extends JTextField implements Writeable{
     public AddressBar(){
         
     }
-    
+    @Override
+    public void insertString(String text){
+        super.setText(text);
+    }
 }

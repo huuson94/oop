@@ -9,7 +9,7 @@ package com.tag;
  *
  * @author hs
  */
-public class InlineTag extends Tag{
+abstract public class InlineTag extends Tag{
 
     public InlineTag(String text) {
         super(text);
