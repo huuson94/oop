@@ -24,6 +24,7 @@ import java.net.URLConnection;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Spliterators;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.input.DataFormat;
@@ -159,14 +160,16 @@ public class PageController extends Thread{
         }
         boolean hasBlockParent = false;
         System.out.println(cur.tagName()+"\t"+cur.classNames()+"|"+cur.parent().tagName()+"."+cur.parent().className());
+        if(cur.isBlock())
+            page.getHtmlBody().getDocument().insertString(page.getHtmlBody().getStyledDocument().getLength(), "\n", getPageStyle());
+
         
         printTag(cur);
         Elements Tags = cur.children();
 
         if (Tags.size() != 0) {
 
-            if (cur.tagName().compareTo("div") == 0 || cur.tagName().compareTo("p") == 0 || cur.tagName().compareTo("h1") == 0
-                    || cur.tagName().compareTo("h2") == 0) {
+            if (cur.isBlock()) {
                 hasBlockParent = true;
             }
             for (i = 0; i < Tags.size(); i++) {
@@ -179,6 +182,7 @@ public class PageController extends Thread{
             }
         }
     }
+   
     
     private void printTag(Element cur) throws BadLocationException{
        
